@@ -20,6 +20,8 @@ typealias Path = List<String>
 typealias Fold = Pair<Char, Int>
 
 data class Point2D (var x: Int, var y: Int) {
+    constructor(pair: Pair<Int, Int>): this(pair.first, pair.second)
+
     operator fun plus(inc: Point2D) = Point2D(x + inc.x, y + inc.y)
     operator fun minus(inc: Point2D) = Point2D(x - inc.x, y - inc.y)
 
