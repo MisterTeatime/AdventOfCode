@@ -58,6 +58,8 @@ data class Point2D (var x: Int, var y: Int) {
 
     fun distanceTo(other: Point2D) = (this.x - other.x).absoluteValue + (this.y - other.y).absoluteValue
 
+    fun slopeTo(other: Point2D) = other - this
+
     class Point2DComparator: Comparator<Point2D> {
         override fun compare(p0: Point2D?, p1: Point2D?): Int {
             return if (p0 == null || p1 == null)
