@@ -1,3 +1,5 @@
+import java.util.*
+
 fun main() {
     fun part1(input: List<String>): Long {
         return calculateCosts(input)
@@ -11,7 +13,7 @@ fun main() {
     val testInput = readInput("Day12_test")
     val resultPart1 = part1(testInput)
     println("Test Part 1: $resultPart1")
-    check(resultPart1 == 140L)
+    check(resultPart1 == 1930L)
 
 //    val resultPart2 = part2(testInput)
 //    println("Test Part 2: $resultPart2")
@@ -22,7 +24,7 @@ fun main() {
 //    println("Part 2: ${part2(input)}")
 }
 
-data class Bereich(val art: Char, var area: Long = 0L, var umfang: Long = 0L)
+data class Bereich(val art: Char, var area: Long = 0L, var umfang: Long = 0L, val id: UUID = UUID.randomUUID() )
 
 fun calculateCosts(map: List<String>): Long {
     val height = map.size
@@ -43,11 +45,19 @@ fun calculateCosts(map: List<String>): Long {
 
     fun bereichFindenOderErstellen(art: Char, punkt: Point2D): Bereich {
         val angrenzendeBereiche = richtungen
+            .asSequence()
             .map { punkt + it }
             .filter { isValid(it) }
             .mapNotNull { cellToArea[it] }
             .distinct()
             .filter { it.art == art}
+            .toList()
+
+        val richtungToPoints = richtungen.map { punkt + it }
+        val filteredPoints = richtungToPoints.filter { isValid(it) }
+        val pointsToArea = filteredPoints.mapNotNull { cellToArea[it] }
+        val distinctAreas = pointsToArea.distinct()
+        val filteredAreas = distinctAreas.filter { it.art == art }.toList()
 
         return if (angrenzendeBereiche.isEmpty()) {
             val neuerBereich = Bereich(art)
@@ -67,8 +77,8 @@ fun calculateCosts(map: List<String>): Long {
         }
     }
 
-    for (x in 0 until width) {
-        for (y in 0 until height) {
+    for (y in 0 until height) {
+        for (x in 0 until width) {
             val punkt = Point2D(x, y)
             if (punkt in cellToArea) continue
 
