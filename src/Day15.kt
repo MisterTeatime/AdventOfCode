@@ -66,6 +66,3 @@ fun splitList(input: List<String>): Pair<List<String>, List<Point2D>> {
         Pair(before, after.joinToString("").map { it.translateMovement() })
     }
 }
-
-fun List<String>.at(point: Point2D): Char =
-    this[point.y][point.x]
