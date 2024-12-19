@@ -22,15 +22,15 @@ fun main() {
 //    println("Part 2: ${part2(input)}")
 }
 
-fun Pair<Int, Int>.processInstruction(registers: MutableMap<Char, Int>): List<Int> {
-    val (opcode, operand) = this
-
-    when (opcode) {
-        0 -> registers['A'] = registers['A']?.shr(operand.getComboOperand(registers).toInt()) ?: throw IllegalArgumentException("Register A is null") //adv
-        1 -> registers['B'] = registers['B']?.xor(operand) ?: throw IllegalArgumentException("Register B is null") //bxl
-        2 -> registers['B'] = operand % 8
-    }
-}
+//fun Pair<Int, Int>.processInstruction(registers: MutableMap<Char, Int>): List<Int> {
+//    val (opcode, operand) = this
+//
+//    when (opcode) {
+//        0 -> registers['A'] = registers['A']?.shr(operand.getComboOperand(registers).toInt()) ?: throw IllegalArgumentException("Register A is null") //adv
+//        1 -> registers['B'] = registers['B']?.xor(operand) ?: throw IllegalArgumentException("Register B is null") //bxl
+//        2 -> registers['B'] = operand % 8
+//    }
+//}
 
 fun Int.getComboOperand(registers: Map<Char, Int>): Int = when (this) {
     in 0..3 -> this
