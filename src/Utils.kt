@@ -30,6 +30,9 @@ data class Point2D (var x: Int, var y: Int) {
         return neighborPoints.map { this + it }.sortedWith(Point2DComparator())
     }
 
+    fun twoStepNeighbors(): List<Point2D> =
+        listOf(Point2D(x - 2, y), Point2D(x + 2, y), Point2D(x, y - 2), Point2D(x, y + 2))
+
     fun neighbors8(): List<Point2D> {
         val neighborPoints = listOf(
             Point2D(1,0),
