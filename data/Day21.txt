@@ -1,0 +1,27 @@
+638A
+965A
+780A
+803A
+246A
+
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+| 4 | 5 | 6 |
++---+---+---+
+| 1 | 2 | 3 |
++---+---+---+
+    | 0 | A |
+    +---+---+
+
+    +---+---+
+    | ^ | A |
++---+---+---+
+| < | v | > |
++---+---+---+
+
+638A -> ^^AvA^^<A>vvvA -> <AA>A<vA^>A<AAv<A>>^AvA<AAA>^A -> v<<A>>^AAvA^Av<<A>A>^A<Av>A^Av<<A>>^AAv<A<A>>^AvAA<^A>Av<A>^Av<<A>>^AAAvA<^A>A (78): 49764
+965A -> ^^^ A v A < A > vv A -> < AAA > A < v A ^ > A v << A >> ^ A v A < AA > ^ A -> v<<A>>^AAAvA^Av<<A>A>^A<Av>A^Av<A<AA>>^AvAA<^A>Av<A>^Av<<A>>^AAvA<^A>A (70): 67550
+780A -> ^^^ << A > A vvv A > A -> < AAA v < AA >> ^ A v A ^ A v < AAA > ^ A v A ^ A -> vv<A>>^AAAv<A<A>>^AAvAA<^A>Av<A>^A<A>Av<A<A>>^AAAvA<^A>Av<A>^A<A>A (66: 51480
+803A -> ^^^ < A vvv A ^ > A v A -> < AAA v < A >> ^ A v < AAA > ^ A < A v > A ^ A v < A > ^ A -> v<<A>>^AAAv<A<A>>^AvAA<^A>Av<A<A>>^AAAvA<^A>Av<<A>>^Av<A>A^A<A>Av<A<A>>^AvA<^A>A (80): 64240
+246A -> ^ < A ^ < A >> A vv A -> < A v < A >> ^ A < A v < A >> ^ A v AA ^ A v < AA > ^ A -> v<<A>>^Av<A<A>>^AvAA<^A>Av<<A>>^Av<A<A>>^AvAA<^A>Av<A>^AA<A>Av<A<A>>^AvA<^A>A (70): 17220
