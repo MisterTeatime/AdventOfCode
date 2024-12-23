@@ -8,9 +8,12 @@ fun main() {
 
     fun part2(input: List<String>): Long {
         val startNumbers = input.map { it.toLong() }
-        val (optimalSequence, maxProfit) = findOptimalDiffSequence(startNumbers, 4)
-        println(optimalSequence)
-        return maxProfit
+        val diffPrices = mutableMapOf<List<Long>, Long>()
+//        findBuyerPrices(123L, diffPrices)
+//        findBuyerPrices(1L, diffPrices)
+        startNumbers.forEach { findBuyerPrices(it, diffPrices) }
+
+        return diffPrices.values.max()
     }
 
     // test if implementation meets criteria from the description, like:
@@ -32,11 +35,18 @@ fun generateSecretNumberSequence(startNumber: Long): Sequence<Long> = sequence {
     var currentNumber = startNumber
 
     while (true) {
-        val e1 = ((currentNumber shl 6) xor currentNumber) and 0xFFFFFFL
-        val e2 = ((e1 shr 5) xor e1) and 0xFFFFFFL
-        currentNumber = ((e2 shl 11) xor e2) and 0xFFFFFFL
+        currentNumber = calculateNextSecretNumber(currentNumber)
         yield(currentNumber)
     }
+}
+
+fun calculateNextSecretNumber(startNumber: Long): Long {
+    var currentNumber = startNumber
+
+    currentNumber = ((currentNumber shl 6) xor currentNumber) and 0xFFFFFFL
+    currentNumber = ((currentNumber shr 5) xor currentNumber) and 0xFFFFFFL
+    currentNumber = ((currentNumber shl 11) xor currentNumber) and 0xFFFFFFL
+    return currentNumber
 }
 
 fun sumOfNthSecretNumber(startNumbers: List<Long>, n: Int): Long {
@@ -47,62 +57,21 @@ fun sumOfNthSecretNumber(startNumbers: List<Long>, n: Int): Long {
     return sum
 }
 
-fun findMaxProfitForSequence(startNumbers: List<Long>, targetDiffs: List<Int>): Long {
-    val diffCount = targetDiffs.size
-    var maxProfit = 0L
+fun findBuyerPrices(startNumber: Long, diffPrices: MutableMap<List<Long>, Long>) {
+    val visited = mutableSetOf<List<Long>>()
+    val secretNumbers = generateSecretNumberSequence(startNumber).iterator()
+    var currentPrice = startNumber % 10
+    val currentPriceSequence = mutableListOf(currentPrice)
 
-    startNumbers.forEach { startNumber ->
-        //val seenDiffs = mutableSetOf<List<Int>>()
-        val secretNumbers = generateSecretNumberSequence(startNumber).iterator()
-
-        val currentDiffs = mutableListOf<Int>()
-        var lastPrice = secretNumbers.next() % 10
-        var position = 0
-
-        while (position < 2000 && currentDiffs.size < diffCount) {
-            val currentPrice = secretNumbers.next() % 10
-            val diff = (currentPrice - lastPrice).toInt()
-            lastPrice = currentPrice
-
-            if (currentDiffs.size == diffCount) {
-                currentDiffs.removeAt(0)
+    repeat(2000) {
+        currentPrice = secretNumbers.next() % 10
+        currentPriceSequence.add(currentPrice)
+        if (currentPriceSequence.size == 5) {
+            val currentDiffs = currentPriceSequence.zipWithNext { a, b -> b - a }
+            if (visited.add(currentDiffs)) {
+                diffPrices[currentDiffs] = (diffPrices[currentDiffs] ?: 0L) + currentPrice
             }
-
-            currentDiffs.add(diff)
-
-            if (currentDiffs == targetDiffs) {
-
-                maxProfit += currentPrice
-                break
-            }
-
-            position++
+            currentPriceSequence.removeFirst()
         }
     }
-    return maxProfit
-}
-
-fun generateAllDiffSquences(length: Int, range: IntRange): List<List<Int>> {
-    if (length == 1) return range.map { listOf(it)}
-
-    val shorterSequences = generateAllDiffSquences(length - 1, range)
-    return shorterSequences.flatMap { seq -> range.map { seq + it }}
-}
-
-fun findOptimalDiffSequence(
-    startNumbers: List<Long>,
-    sequenceLength: Int
-): Pair<List<Int>, Long> {
-    val allDiffSequences = generateAllDiffSquences(sequenceLength, -9..9)
-    var maxProfit = 0L
-    var optimalSequence: List<Int> = emptyList()
-
-    for (sequence in allDiffSequences) {
-        val profit = findMaxProfitForSequence(startNumbers, sequence)
-        if (profit > maxProfit) {
-            maxProfit = profit
-            optimalSequence = sequence
-        }
-    }
-    return optimalSequence to maxProfit
 }
