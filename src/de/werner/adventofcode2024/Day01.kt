@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
+import readInput
 import kotlin.math.abs
 
 class Day01 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day01_test")
+    private val input = readInput("Day01")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val (firstList, secondList) = getLists(input)
 
         firstList.sort()
@@ -13,7 +17,9 @@ class Day01 {
         return combined.sum()
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val (firstList, secondList) = getLists(input)
 
         val result = firstList
@@ -21,6 +27,8 @@ class Day01 {
 
         return result.sum()
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun getLists(input: List<String>): Pair<MutableList<Int>, MutableList<Int>> {
         val firstList = mutableListOf<Int>()

@@ -1,10 +1,14 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 import java.util.*
 
 class Day18 {
-    fun solvePart1(input: List<String>, bytes: Int = 1024, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Int {
+    private val testInput = readInput("Day18_test")
+    private val input = readInput("Day18")
+
+    fun solvePart1(input: List<String> = this.input, bytes: Int = 1024, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Int {
 
         val obstacles = getObstacleList(input.take(bytes))
         val shortestPath = findShortestPath(start, goal, obstacles)
@@ -12,6 +16,8 @@ class Day18 {
         if (shortestPath != null) return shortestPath.size - 1
         return 0
     }
+
+    fun testPart1() = solvePart1(input = testInput, bytes = 12, goal = Point2D(6,6))
 
     fun solvePart2(input: List<String>, width: Int = 71, height: Int = 71, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Point2D {
         val obstacles = getObstacleList(input)
@@ -44,6 +50,8 @@ class Day18 {
 
         return blockingObstacle ?: Point2D(-1, -1)
     }
+
+    fun testPart2() = solvePart2(input = testInput, width = 7, height = 7, goal = Point2D(6,6))
 
     data class Node(val point: Point2D, val g: Int, val h: Int, val parent: Node?) {
         val f: Int get() = g + h

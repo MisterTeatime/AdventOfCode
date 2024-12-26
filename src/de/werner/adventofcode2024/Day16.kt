@@ -2,9 +2,13 @@ package de.werner.adventofcode2024
 
 import Extensions.*
 import Point2D
+import readInput
 
 class Day16 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day16_test")
+    private val input = readInput("Day16")
+
+    fun solvePart1(input: List<String> = this.input): Int {
 
         val (start, end) = input.findStartEnd()
         if (start == null || end == null) throw IllegalArgumentException("Start oder Ende nicht gefunden")
@@ -12,7 +16,11 @@ class Day16 {
         return input.size
     }
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun List<String>.findStartEnd(): Pair<Point2D?, Point2D?> {
         var start: Point2D? = null

@@ -1,18 +1,27 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day03 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day03_test")
+    private val input = readInput("Day03")
+
+    fun solvePart1(input: List<String> = this.input): Int {
 
         val mults = input.map { extractMultiplications(it) }.flatten()
 
         return mults.sumOf { (x, y) -> x * y }
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val mults = processInstructions(input.joinToString(""))
 
         return mults.sumOf { (a,b) -> a*b }
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun extractMultiplications(input: String): List<Pair<Int, Int>> {
         // Regex für die Multiplikationsanweisung: mul(X,Y) mit 1-3-stelligen Zahlen

@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 
 class Day06 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day06_test")
+    private val input = readInput("Day06")
+
+    fun solvePart1(input: List<String> = this.input): Int {
 
         val start = findStartPosition(input)
 
@@ -15,7 +19,9 @@ class Day06 {
         }
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val start = findStartPosition(input)
 
         if (start != null) {
@@ -27,6 +33,8 @@ class Day06 {
             throw Exception("Keine Startposition gefunden!")
         }
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun findStartPosition(map: List<String>): Point2D? {
         for (row in map.indices) {

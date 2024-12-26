@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
+import readInput
 import kotlin.math.pow
 
 class Day11 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day11_test")
+    private val input = readInput("Day11")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         var result = input[0].split(" ").map { it.toLong() }
 
         repeat(25) {
@@ -13,7 +17,9 @@ class Day11 {
         return result.size
     }
 
-    fun solvePart2(input: List<String>): Long {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Long {
         var result = input[0]
             .split(" ")
             .groupingBy { it.toLong() }
@@ -26,6 +32,8 @@ class Day11 {
 
         return result.values.sum()
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun applyRules(input: List<Long>): List<Long> {
         require(input.size == 1) {"Input Liste muss genau ein Element enthalten."}

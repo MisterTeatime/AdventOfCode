@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 
 class Day10 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day10_test")
+    private val input = readInput("Day10")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val map = input.map { str -> str.map { char -> char.toString().toInt() }}
         val starts = map.findTrailStarts()
         val sum = starts.sumOf { trailhead -> trailhead.getScore(map) }
@@ -11,13 +15,17 @@ class Day10 {
         return sum
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val map = input.map { str -> str.map { char -> char.toString().toInt() }}
         val starts = map.findTrailStarts()
         val sum = starts.sumOf { trailhead -> trailhead.getRating(map) }
 
         return sum
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun List<List<Int>>.findTrailStarts(): MutableList<Point2D> {
         val map = this

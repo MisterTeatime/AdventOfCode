@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 
 class Day15 {
-    fun solvePart1(input: List<String>): Long {
+    private val testInput = readInput("Day15_test")
+    private val input = readInput("Day15")
+
+    fun solvePart1(input: List<String> = this.input): Long {
         val (map, movementStrings) = splitList(input)
         val (objects, robotStart) = input.getMapObjects()
 
@@ -12,7 +16,11 @@ class Day15 {
         return input.size.toLong()
     }
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     data class Obstacle(val location: Point2D, val type: Char)
 

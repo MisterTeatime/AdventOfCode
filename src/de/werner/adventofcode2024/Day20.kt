@@ -1,21 +1,29 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 
 class Day20 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day20_test")
+    private val input = readInput("Day20")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val cheatTimes = findCheatsWithDistance(input, 2)
         return cheatTimes
             .filter { it >= 100 }
             .size
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val cheatTimes = findCheatsWithDistance(input, 20)
         return cheatTimes
             .filter { it >= 100 }
             .size
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun findCheatsWithDistance(
         track: List<String>,

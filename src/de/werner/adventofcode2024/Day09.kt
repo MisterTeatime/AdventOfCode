@@ -1,7 +1,12 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day09 {
-    fun solvePart1(input: List<String>): Long {
+    private val testInput = readInput("Day09_test")
+    private val input = readInput("Day09")
+
+   fun solvePart1(input: List<String> = this.input): Long {
         val (blocks, spaces) = splitInput(input[0])
         return defragAndCalculateChecksum(blocks, spaces)
     }
@@ -10,7 +15,11 @@ class Day09 {
         return input.size
     }
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun splitInput(input: String): Pair<MutableList<Int> ,MutableList<Int>> {
         val numbers = input.map { it.toString().toInt() }

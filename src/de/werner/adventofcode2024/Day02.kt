@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
+import readInput
 import kotlin.math.abs
 
 class Day02 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day02_test")
+    private val input = readInput("Day02")
+
+    fun solvePart1(input: List<String> = this.input): Int {
 
         val diffs = input.map {
                 line -> line
@@ -20,7 +24,9 @@ class Day02 {
         return diffs.count { it }
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val diffs = input.map { line ->
             val numbers = line.split(" ").map { it.toInt() }
 
@@ -43,5 +49,7 @@ class Day02 {
         }
         return diffs.count {it}
     }
+
+    fun testPart2() = solvePart2(testInput)
 }
 

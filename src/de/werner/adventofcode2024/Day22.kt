@@ -1,14 +1,21 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day22 {
-    fun solvePart1(input: List<String>): Long {
+    private val testInput = readInput("Day22_test")
+    private val input = readInput("Day22")
+
+    fun solvePart1(input: List<String> = this.input): Long {
         val startNumbers = input.map { it.toLong() }
         val sum = sumOfNthSecretNumber(startNumbers, 2000)
 
         return sum
     }
 
-    fun solvePart2(input: List<String>): Long {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Long {
         val startNumbers = input.map { it.toLong() }
         val diffPrices = mutableMapOf<List<Long>, Long>()
 //        findBuyerPrices(123L, diffPrices)
@@ -17,6 +24,8 @@ class Day22 {
 
         return diffPrices.values.max()
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun generateSecretNumberSequence(startNumber: Long): Sequence<Long> = sequence {
         var currentNumber = startNumber

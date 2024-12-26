@@ -1,7 +1,12 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day05 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day05_test")
+    private val input = readInput("Day05")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val (inst, upd) = splitList(input)
 
         val instructions = inst.map { instruction ->
@@ -14,7 +19,9 @@ class Day05 {
         return validUpdates.sumOf { it[it.size / 2] }
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val (inst, upd) = splitList(input)
 
         val instructions = inst.map { instruction ->
@@ -33,6 +40,8 @@ class Day05 {
 
         return correctedUpdates.sumOf { it[it.size / 2] }
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun splitList(input: List<String>): Pair<List<String>, List<String>> {
         val splitIndex = input.indexOf("")

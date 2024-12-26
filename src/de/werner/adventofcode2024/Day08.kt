@@ -1,9 +1,13 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 
 class Day08 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day08_test")
+    private val input = readInput("Day08")
+
+    fun solvePart1(input: List<String> = this.input): Int {
 
         val frequencies = findFrequencies(input)
         val antinodes = calculateUniqueFirstAntinodes(frequencies, input)
@@ -11,12 +15,16 @@ class Day08 {
         return antinodes.size
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val frequencies = findFrequencies(input)
         val antinodes = calculateUniqueAntinodes(frequencies, input)
 
         return antinodes.size
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun findFrequencies(map: List<String>): Map<Char, MutableList<Point2D>> {
         val result = mutableMapOf<Char, MutableList<Point2D>>()

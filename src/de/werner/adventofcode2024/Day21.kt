@@ -1,6 +1,11 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day21 {
+    private val testInput = readInput("Day21_test")
+    private val input = readInput("Day21")
+
     private val codePad = mapOf(
         'A' to mapOf('0' to "<", '3' to "^"),
         '0' to mapOf('2' to "^", 'A' to ">"),
@@ -23,7 +28,7 @@ class Day21 {
         '<' to mapOf('v' to ">")
     )
 
-    fun solvePart1(input: List<String>): Long {
+    fun solvePart1(input: List<String> = this.input): Long {
         var complexity = 0L
         for (code in input) {
             val shortestPath = controlChain(codePad, controlPad, code)
@@ -39,7 +44,11 @@ class Day21 {
         return complexity
     }
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun findAllPaths(
         pad: Map<Char, Map<Char, String>>,

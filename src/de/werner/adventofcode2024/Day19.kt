@@ -1,19 +1,28 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day19 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day19_test")
+    private val input = readInput("Day19")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val (words, sentences) = splitInput(input)
 
         val result = sentences.map { isValidSequence(it, words) }
         return result.count { it }
     }
 
-    fun solvePart2(input: List<String>): Long {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Long {
         val (words, sentences) = splitInput(input)
 
         val result = sentences.map { countValidCombinations(it, words) }
         return result.sum()
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun splitInput(input: List<String>): Pair<List<String>, List<String>> {
         val words = input[0].split(", ")

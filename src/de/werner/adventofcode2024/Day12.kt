@@ -1,12 +1,20 @@
 package de.werner.adventofcode2024
 
 import Point2D
+import readInput
 import java.util.*
 
 class Day12 {
-    fun solvePart1(input: List<String>): Long = calculateCosts(input)
+    private val testInput = readInput("Day12_test")
+    private val input = readInput("Day12")
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun solvePart1(input: List<String> = this.input): Long = calculateCosts(input)
+
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     data class Bereich(val art: Char, var area: Long = 0L, var umfang: Long = 0L, val id: UUID = UUID.randomUUID() )
 

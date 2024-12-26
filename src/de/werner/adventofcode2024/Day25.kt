@@ -1,7 +1,12 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day25 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day25_test")
+    private val input = readInput("Day25")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val (locks, keys) = parsePatterns(input)
 
         val result = locks.flatMap { l -> keys.map { k -> doesFit(l, k) }}
@@ -9,7 +14,11 @@ class Day25 {
         return result.count { it }
     }
 
-    fun solvePart2(input: List<String>): Int = input.size
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int = input.size
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun doesFit(lock: Pair<List<Int>, Int>, key: Pair<List<Int>, Int>): Boolean {
         val (lockColumns, lockSize) = lock

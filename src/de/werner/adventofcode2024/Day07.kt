@@ -1,19 +1,28 @@
 package de.werner.adventofcode2024
 
+import readInput
+
 class Day07 {
-    fun solvePart1(input: List<String>): Long {
+    private val testInput = readInput("Day07_test")
+    private val input = readInput("Day07")
+
+    fun solvePart1(input: List<String> = this.input): Long {
         return input
             .map { checkExpressionValidity(it)}
             .filter { it.first }
             .sumOf { it.second }
     }
 
-    fun solvePart2(input: List<String>): Long {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Long {
         return input
             .map { checkExpressionValidity(it, 2)}
             .filter { it.first }
             .sumOf { it.second }
     }
+
+    fun testPart2() = solvePart2(testInput)
 
     private fun checkExpressionValidity(line: String, part: Int = 1): Pair<Boolean, Long> {
         val (targetString, elementsString) = line.split(": ")

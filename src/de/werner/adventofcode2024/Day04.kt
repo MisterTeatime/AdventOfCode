@@ -4,9 +4,13 @@ import Extensions.getStringColumns
 import Extensions.getStringNOSWDiagonals
 import Extensions.getStringNWSODiagonals
 import Extensions.getStringRows
+import readInput
 
 class Day04 {
-    fun solvePart1(input: List<String>): Int {
+    private val testInput = readInput("Day04_test")
+    private val input = readInput("Day04")
+
+    fun solvePart1(input: List<String> = this.input): Int {
         val word = "XMAS"
         val targetWords = listOf(word, word.reversed())
         val wordLength = word.length
@@ -34,7 +38,9 @@ class Day04 {
         return results.size
     }
 
-    fun solvePart2(input: List<String>): Int {
+    fun testPart1() = solvePart1(testInput)
+
+    fun solvePart2(input: List<String> = this.input): Int {
         val results = mutableListOf<Pair<Int, Int>>()
 
         val numRows = input.size
@@ -67,5 +73,7 @@ class Day04 {
 
         return results.size
     }
+
+    fun testPart2() = solvePart2(testInput)
 }
 
