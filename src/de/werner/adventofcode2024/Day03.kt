@@ -1,5 +1,20 @@
-fun main() {
-    fun extractMultiplications(input: String): List<Pair<Int, Int>> {
+package de.werner.adventofcode2024
+
+class Day03 {
+    fun solvePart1(input: List<String>): Int {
+
+        val mults = input.map { extractMultiplications(it) }.flatten()
+
+        return mults.sumOf { (x, y) -> x * y }
+    }
+
+    fun solvePart2(input: List<String>): Int {
+        val mults = processInstructions(input.joinToString(""))
+
+        return mults.sumOf { (a,b) -> a*b }
+    }
+
+    private fun extractMultiplications(input: String): List<Pair<Int, Int>> {
         // Regex für die Multiplikationsanweisung: mul(X,Y) mit 1-3-stelligen Zahlen
         val regex = Regex("""mul\((\d{1,3}),(\d{1,3})\)""")
 
@@ -11,14 +26,8 @@ fun main() {
             Pair(x, y) // Rückgabe als Tupel
         }.toList() // Umwandeln in eine Liste
     }
-    fun part1(input: List<String>): Int {
 
-        val mults = input.map { extractMultiplications(it) }.flatten()
-
-        return mults.sumOf { (x, y) -> x * y }
-    }
-
-    fun processInstructions(input: String): List<Pair<Int, Int>> {
+    private fun processInstructions(input: String): List<Pair<Int, Int>> {
         val regex = Regex("""(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))""")
         val matches = regex.findAll(input)
 
@@ -42,24 +51,5 @@ fun main() {
         }
         return result
     }
-
-    fun part2(input: List<String>): Int {
-        val mults = processInstructions(input.joinToString(""))
-
-        return mults.sumOf { (a,b) -> a*b }
-    }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day03_test")
-    val resultPart1 = part1(testInput)
-    println("Test Part 1: $resultPart1")
-    check(resultPart1 == 161)
-
-    val resultPart2 = part2(testInput)
-    println("Test Part 2: $resultPart2")
-    check(resultPart2 == 48)
-
-    val input = readInput("Day03")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
 }
+

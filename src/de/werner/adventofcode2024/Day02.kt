@@ -1,13 +1,15 @@
+package de.werner.adventofcode2024
+
 import kotlin.math.abs
 
-fun main() {
-    fun part1(input: List<String>): Int {
+class Day02 {
+    fun solvePart1(input: List<String>): Int {
 
         val diffs = input.map {
-            line -> line
-                .split(" ")
-                .map { it.toInt() }
-                .zipWithNext { a, b -> b - a }
+                line -> line
+            .split(" ")
+            .map { it.toInt() }
+            .zipWithNext { a, b -> b - a }
         }.map { when {
             !it.all { el -> abs(el) in 1..3 } -> false
             it.all { el -> el > 0 } || it.all { el -> el < 0 } -> true
@@ -18,7 +20,7 @@ fun main() {
         return diffs.count { it }
     }
 
-    fun part2(input: List<String>): Int {
+    fun solvePart2(input: List<String>): Int {
         val diffs = input.map { line ->
             val numbers = line.split(" ").map { it.toInt() }
 
@@ -39,22 +41,7 @@ fun main() {
                 }
             }
         }
-
-
         return diffs.count {it}
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day02_test")
-    val resultPart1 = part1(testInput)
-    println("Test Part 1: $resultPart1")
-    check(resultPart1 == 2)
-
-    val resultPart2 = part2(testInput)
-    println("Test Part 2: $resultPart2")
-    check(resultPart2 == 4)
-
-    val input = readInput("Day02")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
 }
+

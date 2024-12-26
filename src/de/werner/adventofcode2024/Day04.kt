@@ -1,19 +1,21 @@
+package de.werner.adventofcode2024
+
 import Extensions.getStringColumns
 import Extensions.getStringNOSWDiagonals
 import Extensions.getStringNWSODiagonals
 import Extensions.getStringRows
 
-fun main() {
-    fun part1(input: List<String>): Int {
+class Day04 {
+    fun solvePart1(input: List<String>): Int {
         val word = "XMAS"
         val targetWords = listOf(word, word.reversed())
         val wordLength = word.length
 
         val sequences =
             input.getStringRows() +
-            input.getStringColumns() +
-            input.getStringNWSODiagonals(wordLength) +
-            input.getStringNOSWDiagonals(wordLength)
+                    input.getStringColumns() +
+                    input.getStringNWSODiagonals(wordLength) +
+                    input.getStringNOSWDiagonals(wordLength)
 
         val results = mutableListOf<Pair<Int, Int>>()
         for ((sequence, startPos, direction) in sequences) {
@@ -32,7 +34,7 @@ fun main() {
         return results.size
     }
 
-    fun part2(input: List<String>): Int {
+    fun solvePart2(input: List<String>): Int {
         val results = mutableListOf<Pair<Int, Int>>()
 
         val numRows = input.size
@@ -51,7 +53,7 @@ fun main() {
                         val (mRow, mCol) = Pair(row + end.first, col + end.second)
 
                         if (!((input[sRow][sCol] == 'S' && input[mRow][mCol] == 'M') ||
-                            (input[sRow][sCol] == 'M' && input[mRow][mCol] == 'S'))) {
+                                    (input[sRow][sCol] == 'M' && input[mRow][mCol] == 'S'))) {
                             valid = false
                             break
                         }
@@ -65,18 +67,5 @@ fun main() {
 
         return results.size
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day04_test")
-    val resultPart1 = part1(testInput)
-    println("Test Part 1: $resultPart1")
-    check(resultPart1 == 18)
-
-    val resultPart2 = part2(testInput)
-    println("Test Part 2: $resultPart2")
-    check(resultPart2 == 9)
-
-    val input = readInput("Day04")
-    println("Part 1: ${part1(input)}")
-    println("Part 2: ${part2(input)}")
 }
+
