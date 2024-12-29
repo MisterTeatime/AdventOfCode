@@ -7,8 +7,8 @@ import Extensions.getStringRows
 import readInput
 
 class Day04 {
-    private val testInput = readInput("Day04_test")
-    private val input = readInput("Day04")
+    private val testInput = readInput("""2024\Day04_test""")
+    private val input = readInput("""2024\Day04""")
 
     fun solvePart1(input: List<String> = this.input): Int {
         val word = "XMAS"

@@ -5,8 +5,8 @@ import readInput
 import java.util.*
 
 class Day12 {
-    private val testInput = readInput("Day12_test")
-    private val input = readInput("Day12")
+    private val testInput = readInput("""2024\Day12_test""")
+    private val input = readInput("""2024\Day12""")
 
     fun solvePart1(input: List<String> = this.input): Long = calculateCosts(input)
 

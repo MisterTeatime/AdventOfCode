@@ -3,8 +3,8 @@ package de.werner.adventofcode2024
 import readInput
 
 class Day22 {
-    private val testInput = readInput("Day22_test")
-    private val input = readInput("Day22")
+    private val testInput = readInput("""2024\Day22_test""")
+    private val input = readInput("""2024\Day22""")
 
     fun solvePart1(input: List<String> = this.input): Long {
         val startNumbers = input.map { it.toLong() }

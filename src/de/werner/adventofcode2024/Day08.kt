@@ -4,8 +4,8 @@ import Point2D
 import readInput
 
 class Day08 {
-    private val testInput = readInput("Day08_test")
-    private val input = readInput("Day08")
+    private val testInput = readInput("""2024\Day08_test""")
+    private val input = readInput("""2024\Day08""")
 
     fun solvePart1(input: List<String> = this.input): Int {
 

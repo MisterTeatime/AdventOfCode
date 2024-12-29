@@ -4,8 +4,8 @@ import Point2D
 import readInput
 
 class Day20 {
-    private val testInput = readInput("Day20_test")
-    private val input = readInput("Day20")
+    private val testInput = readInput("""2024\Day20_test""")
+    private val input = readInput("""2024\Day20""")
 
     fun solvePart1(input: List<String> = this.input): Int {
         val cheatTimes = findCheatsWithDistance(input, 2)

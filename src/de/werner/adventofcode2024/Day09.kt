@@ -3,8 +3,8 @@ package de.werner.adventofcode2024
 import readInput
 
 class Day09 {
-    private val testInput = readInput("Day09_test")
-    private val input = readInput("Day09")
+    private val testInput = readInput("""2024\Day09_test""")
+    private val input = readInput("""2024\Day09""")
 
    fun solvePart1(input: List<String> = this.input): Long {
         val (blocks, spaces) = splitInput(input[0])

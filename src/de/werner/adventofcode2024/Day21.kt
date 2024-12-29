@@ -3,8 +3,8 @@ package de.werner.adventofcode2024
 import readInput
 
 class Day21 {
-    private val testInput = readInput("Day21_test")
-    private val input = readInput("Day21")
+    private val testInput = readInput("""2024\Day21_test""")
+    private val input = readInput("""2024\Day21""")
 
     private val codePad = mapOf(
         'A' to mapOf('0' to "<", '3' to "^"),

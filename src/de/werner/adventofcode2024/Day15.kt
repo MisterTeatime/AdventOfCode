@@ -4,8 +4,8 @@ import Point2D
 import readInput
 
 class Day15 {
-    private val testInput = readInput("Day15_test")
-    private val input = readInput("Day15")
+    private val testInput = readInput("""2024\Day15_test""")
+    private val input = readInput("""2024\Day15""")
 
     fun solvePart1(input: List<String> = this.input): Long {
         val (map, movementStrings) = splitList(input)

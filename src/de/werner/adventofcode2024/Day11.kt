@@ -4,8 +4,8 @@ import readInput
 import kotlin.math.pow
 
 class Day11 {
-    private val testInput = readInput("Day11_test")
-    private val input = readInput("Day11")
+    private val testInput = readInput("""2024\Day11_test""")
+    private val input = readInput("""2024\Day11""")
 
     fun solvePart1(input: List<String> = this.input): Int {
         var result = input[0].split(" ").map { it.toLong() }

@@ -5,8 +5,8 @@ import readInput
 import java.util.*
 
 class Day18 {
-    private val testInput = readInput("Day18_test")
-    private val input = readInput("Day18")
+    private val testInput = readInput("""2024\Day18_test""")
+    private val input = readInput("""2024\Day18""")
 
     fun solvePart1(input: List<String> = this.input, bytes: Int = 1024, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Int {
 

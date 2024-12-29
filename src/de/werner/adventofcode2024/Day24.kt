@@ -12,16 +12,44 @@ class Day24 {
 
         println(output)
 
-        return output.foldIndexed(0) {index, acc, bit ->
-            if (bit) acc + (1L shl (index)) else acc
-        }
+        return binaryListToLong(output)
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): String {
+        val network = getLogicNetwork(input)
+        val inputX = binaryListToLong(network.externalInputs
+            .filterKeys { it.startsWith("x") }
+            .values.toList()
+        )
+        val inputY = binaryListToLong(network.externalInputs
+            .filterKeys { it.startsWith("y") }
+            .values.toList()
+        )
+
+        val output = longToBinaryList(inputX + inputY)
+        return ""
+    }
 
     fun testPart2() = solvePart2(testInput)
+
+    private fun binaryListToLong(input: List<Boolean>): Long =
+        input.foldIndexed(0) {index, acc, bit ->
+            if (bit) acc + (1L shl (index)) else acc
+        }
+
+    private fun longToBinaryList(number: Long): List<Boolean> {
+        var num = number
+        val binaryList = mutableListOf<Boolean>()
+
+        while (num > 0) {
+            binaryList.add(num and 1 == 1L)
+            num = num shr 1
+        }
+
+        return binaryList
+    }
 
     private fun getLogicNetwork(input: List<String>): LogicNetwork {
         val index = input.indexOf("")
@@ -66,7 +94,7 @@ sealed class LogicGate {
 
 class LogicNetwork(
     private val gates: Map<String, Triple<LogicGate, String, String>>, // Name -> (Gate, Input1, Input2)
-    private val externalInputs: Map<String, Boolean> // Externe Eingaben
+    val externalInputs: Map<String, Boolean> // Externe Eingaben
 ) {
     private val computedOutputs = mutableMapOf<String, Boolean>() // Cache für berechnete Outputs
 
@@ -100,5 +128,43 @@ class LogicNetwork(
         computedOutputs[gateName] = output
         return output
     }
+
+    fun findSwappedWires(
+        expectedInputs: Map<String, Pair<String, String>> // z -> (expected x or y pair)
+    ): List<String> {
+        val swappedWires = mutableSetOf<String>()
+
+        expectedInputs.forEach { (zOutput, expectedPair) ->
+            // Rückverfolgung der tatsächlichen Inputs
+            val actualInputs = traceBackInputs(zOutput)
+
+            // Vergleiche erwartete und tatsächliche Inputs
+            if (actualInputs != expectedPair) {
+                swappedWires.addAll(listOf(actualInputs.first, actualInputs.second, expectedPair.first, expectedPair.second))
+            }
+        }
+
+        return swappedWires.sorted()
+    }
+
+    private fun traceBackInputs(output: String): Pair<String, String> {
+        val gate = gates[output]
+            ?: error("Gate $output not found in logic network")
+
+        val input1 = gate.second
+        val input2 = gate.third
+
+        // Falls die Inputs keine Gates mehr sind, direkt zurückgeben
+        if (!gates.containsKey(input1) && !gates.containsKey(input2)) {
+            return Pair(input1, input2)
+        }
+
+        // Ansonsten rekursiv zurückverfolgen
+        val tracedInput1 = if (gates.containsKey(input1)) traceBackInputs(input1).first else input1
+        val tracedInput2 = if (gates.containsKey(input2)) traceBackInputs(input2).second else input2
+
+        return Pair(tracedInput1, tracedInput2)
+    }
+
 }
 

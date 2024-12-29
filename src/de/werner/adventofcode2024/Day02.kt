@@ -4,8 +4,8 @@ import readInput
 import kotlin.math.abs
 
 class Day02 {
-    private val testInput = readInput("Day02_test")
-    private val input = readInput("Day02")
+    private val testInput = readInput("""2024\Day02_test""")
+    private val input = readInput("""2024\Day02""")
 
     fun solvePart1(input: List<String> = this.input): Int {
 
