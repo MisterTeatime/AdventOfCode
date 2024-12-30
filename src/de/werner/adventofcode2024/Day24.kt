@@ -3,8 +3,8 @@ package de.werner.adventofcode2024
 import readInput
 
 class Day24 {
-    private val testInput = readInput("Day24_test")
-    private val input = readInput("Day24")
+    private val testInput = readInput("""2024\Day24_test""")
+    private val input = readInput("""2024\Day24""")
 
     fun solvePart1(input: List<String> = this.input): Long {
         val network = getLogicNetwork(input)
@@ -64,9 +64,9 @@ class Day24 {
             .associate {
                 val (firstIn, gateName, secondIn, _, output) = it.split(" ")
                 val gate = when(gateName) {
-                    "OR" -> LogicGate.OrGate
-                    "AND" -> LogicGate.AndGate
-                    "XOR" -> LogicGate.XorGate
+                    "OR" -> LogicGate.OR
+                    "AND" -> LogicGate.AND
+                    "XOR" -> LogicGate.XOR
                     else -> throw IllegalArgumentException("$gateName ist kein zulässiger Gatetyp")
                 }
                 output to Triple(gate, firstIn, secondIn)
@@ -74,97 +74,108 @@ class Day24 {
 
         return LogicNetwork(gates, externalInputs)
     }
-}
 
-sealed class LogicGate {
-    abstract fun evaluate(input1: Boolean, input2: Boolean): Boolean
+//    sealed class LogicGate {
+//        abstract fun evaluate(input1: Boolean, input2: Boolean): Boolean
+//
+//        data object AndGate : LogicGate() {
+//            override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 && input2
+//        }
+//
+//        data object OrGate : LogicGate() {
+//            override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 || input2
+//        }
+//
+//        data object XorGate : LogicGate() {
+//            override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 != input2
+//        }
+//    }
+        enum class LogicGate {
+            OR, XOR, AND;
 
-    data object AndGate : LogicGate() {
-        override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 && input2
-    }
-
-    data object OrGate : LogicGate() {
-        override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 || input2
-    }
-
-    data object XorGate : LogicGate() {
-        override fun evaluate(input1: Boolean, input2: Boolean): Boolean = input1 != input2
-    }
-}
-
-class LogicNetwork(
-    private val gates: Map<String, Triple<LogicGate, String, String>>, // Name -> (Gate, Input1, Input2)
-    val externalInputs: Map<String, Boolean> // Externe Eingaben
-) {
-    private val computedOutputs = mutableMapOf<String, Boolean>() // Cache für berechnete Outputs
-
-    fun evaluate(): List<Boolean> {
-        // Filter und sortiere Outputs
-        val outputMapping = gates.keys.filter { it.startsWith("z") }.sorted()
-
-        // Berechne alle Outputs in der sortierten Reihenfolge
-        return outputMapping.map { outputName ->
-            computeGateOutput(outputName)
+        fun evaluate(input1: Boolean, input2: Boolean): Boolean = when (this) {
+            OR -> input1 || input2
+            AND -> input1 && input2
+            XOR -> input1 != input2
         }
-    }
+        }
 
-    private fun computeGateOutput(gateName: String): Boolean {
-        // Falls der Output bereits berechnet wurde, direkt zurückgeben
-        computedOutputs[gateName]?.let { return it }
+    class LogicNetwork(
+        private val gates: Map<String, Triple<LogicGate, String, String>>, // Name -> (Gate, Input1, Input2)
+        val externalInputs: Map<String, Boolean> // Externe Eingaben
+    ) {
+        private val computedOutputs = mutableMapOf<String, Boolean>() // Cache für berechnete Outputs
 
-        // Falls der Name in externen Eingaben liegt, direkt zurückgeben
-        externalInputs[gateName]?.let { return it }
+        fun evaluate(): List<Boolean> {
+            // Filter und sortiere Outputs
+            val outputMapping = gates.keys.filter { it.startsWith("z") }.sorted()
 
-        // Gate-Definition abrufen
-        val (gate, input1Name, input2Name) = gates[gateName]
-            ?: error("Gate $gateName not found")
-
-        // Inputs rekursiv berechnen
-        val input1 = computeGateOutput(input1Name)
-        val input2 = computeGateOutput(input2Name)
-
-        // Gate evaluieren und Ergebnis cachen
-        val output = gate.evaluate(input1, input2)
-        computedOutputs[gateName] = output
-        return output
-    }
-
-    fun findSwappedWires(
-        expectedInputs: Map<String, Pair<String, String>> // z -> (expected x or y pair)
-    ): List<String> {
-        val swappedWires = mutableSetOf<String>()
-
-        expectedInputs.forEach { (zOutput, expectedPair) ->
-            // Rückverfolgung der tatsächlichen Inputs
-            val actualInputs = traceBackInputs(zOutput)
-
-            // Vergleiche erwartete und tatsächliche Inputs
-            if (actualInputs != expectedPair) {
-                swappedWires.addAll(listOf(actualInputs.first, actualInputs.second, expectedPair.first, expectedPair.second))
+            // Berechne alle Outputs in der sortierten Reihenfolge
+            return outputMapping.map { outputName ->
+                computeGateOutput(outputName)
             }
         }
 
-        return swappedWires.sorted()
-    }
+        private fun computeGateOutput(gateName: String): Boolean {
+            // Falls der Output bereits berechnet wurde, direkt zurückgeben
+            computedOutputs[gateName]?.let { return it }
 
-    private fun traceBackInputs(output: String): Pair<String, String> {
-        val gate = gates[output]
-            ?: error("Gate $output not found in logic network")
+            // Falls der Name in externen Eingaben liegt, direkt zurückgeben
+            externalInputs[gateName]?.let { return it }
 
-        val input1 = gate.second
-        val input2 = gate.third
+            // Gate-Definition abrufen
+            val (gate, input1Name, input2Name) = gates[gateName]
+                ?: error("Gate $gateName not found")
 
-        // Falls die Inputs keine Gates mehr sind, direkt zurückgeben
-        if (!gates.containsKey(input1) && !gates.containsKey(input2)) {
-            return Pair(input1, input2)
+            // Inputs rekursiv berechnen
+            val input1 = computeGateOutput(input1Name)
+            val input2 = computeGateOutput(input2Name)
+
+            // Gate evaluieren und Ergebnis cachen
+            val output = gate.evaluate(input1, input2)
+            computedOutputs[gateName] = output
+            return output
         }
 
-        // Ansonsten rekursiv zurückverfolgen
-        val tracedInput1 = if (gates.containsKey(input1)) traceBackInputs(input1).first else input1
-        val tracedInput2 = if (gates.containsKey(input2)) traceBackInputs(input2).second else input2
+        fun findSwappedWires(
+            expectedInputs: Map<String, Pair<String, String>> // z -> (expected x or y pair)
+        ): List<String> {
+            val swappedWires = mutableSetOf<String>()
 
-        return Pair(tracedInput1, tracedInput2)
+            expectedInputs.forEach { (zOutput, expectedPair) ->
+                // Rückverfolgung der tatsächlichen Inputs
+                val actualInputs = traceBackInputs(zOutput)
+
+                // Vergleiche erwartete und tatsächliche Inputs
+                if (actualInputs != expectedPair) {
+                    swappedWires.addAll(listOf(actualInputs.first, actualInputs.second, expectedPair.first, expectedPair.second))
+                }
+            }
+
+            return swappedWires.sorted()
+        }
+
+        private fun traceBackInputs(output: String): Pair<String, String> {
+            val gate = gates[output]
+                ?: error("Gate $output not found in logic network")
+
+            val input1 = gate.second
+            val input2 = gate.third
+
+            // Falls die Inputs keine Gates mehr sind, direkt zurückgeben
+            if (!gates.containsKey(input1) && !gates.containsKey(input2)) {
+                return Pair(input1, input2)
+            }
+
+            // Ansonsten rekursiv zurückverfolgen
+            val tracedInput1 = if (gates.containsKey(input1)) traceBackInputs(input1).first else input1
+            val tracedInput2 = if (gates.containsKey(input2)) traceBackInputs(input2).second else input2
+
+            return Pair(tracedInput1, tracedInput2)
+        }
+
     }
-
 }
+
+
 
