@@ -1,6 +1,6 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day21 {
     private val testInput = readInput("""2024\Day21_test""")
@@ -28,7 +28,7 @@ class Day21 {
         '<' to mapOf('v' to ">")
     )
 
-    fun solvePart1(input: List<String> = this.input): Long {
+    fun solvePart1(input: List<String> = this.input): Long = timing {
         var complexity = 0L
         for (code in input) {
             val shortestPath = controlChain(codePad, controlPad, code)
@@ -41,12 +41,12 @@ class Day21 {
 //            .map { it to controlChain(codePad, controlPad, it) }
 //            .sumOf { calculateComplexity(it.first, it.second.length) }
         println(complexity)
-        return complexity
+        return@timing complexity
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

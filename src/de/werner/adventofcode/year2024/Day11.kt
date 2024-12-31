@@ -1,25 +1,25 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 import kotlin.math.pow
 
 class Day11 {
     private val testInput = readInput("""2024\Day11_test""")
     private val input = readInput("""2024\Day11""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         var result = input[0].split(" ").map { it.toLong() }
 
         repeat(25) {
             result = processListParallel(result)
         }
 
-        return result.size
+        return@timing result.size
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Long {
+    fun solvePart2(input: List<String> = this.input): Long = timing {
         var result = input[0]
             .split(" ")
             .groupingBy { it.toLong() }
@@ -30,7 +30,7 @@ class Day11 {
             result = processIterationWithCount(result)
         }
 
-        return result.values.sum()
+        return@timing result.values.sum()
     }
 
     fun testPart2() = solvePart2(testInput)

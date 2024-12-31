@@ -1,19 +1,18 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day06 {
     private val testInput = readInput("""2024\Day06_test""")
     private val input = readInput("""2024\Day06""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
 
         val start = findStartPosition(input)
 
         if (start != null) {
             val path = simulatePath(input, start)
-            return path.first.size
+            return@timing path.first.size
         } else {
             throw Exception("Keine Startposition gefunden!")
         }
@@ -21,13 +20,13 @@ class Day06 {
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val start = findStartPosition(input)
 
         if (start != null) {
             //Hindernisse finden
             val loopPositions = findLoopPositions(input, start)
-            return loopPositions.size
+            return@timing loopPositions.size
         }
         else {
             throw Exception("Keine Startposition gefunden!")

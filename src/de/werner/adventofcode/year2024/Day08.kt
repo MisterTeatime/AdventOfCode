@@ -1,27 +1,26 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day08 {
     private val testInput = readInput("""2024\Day08_test""")
     private val input = readInput("""2024\Day08""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
 
         val frequencies = findFrequencies(input)
         val antinodes = calculateUniqueFirstAntinodes(frequencies, input)
 
-        return antinodes.size
+        return@timing antinodes.size
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val frequencies = findFrequencies(input)
         val antinodes = calculateUniqueAntinodes(frequencies, input)
 
-        return antinodes.size
+        return@timing antinodes.size
     }
 
     fun testPart2() = solvePart2(testInput)

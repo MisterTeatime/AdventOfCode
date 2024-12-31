@@ -1,28 +1,27 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day10 {
     private val testInput = readInput("""2024\Day10_test""")
     private val input = readInput("""2024\Day10""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val map = input.map { str -> str.map { char -> char.toString().toInt() }}
         val starts = map.findTrailStarts()
         val sum = starts.sumOf { trailhead -> trailhead.getScore(map) }
 
-        return sum
+        return@timing sum
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val map = input.map { str -> str.map { char -> char.toString().toInt() }}
         val starts = map.findTrailStarts()
         val sum = starts.sumOf { trailhead -> trailhead.getRating(map) }
 
-        return sum
+        return@timing sum
     }
 
     fun testPart2() = solvePart2(testInput)

@@ -1,24 +1,23 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day15 {
     private val testInput = readInput("""2024\Day15_test""")
     private val input = readInput("""2024\Day15""")
 
-    fun solvePart1(input: List<String> = this.input): Long {
+    fun solvePart1(input: List<String> = this.input): Long = timing {
         val (map, movementStrings) = splitList(input)
         val (objects, robotStart) = input.getMapObjects()
 
         if (robotStart == null) throw IllegalArgumentException("Keine Startposition gefunden")
 
-        return input.size.toLong()
+        return@timing input.size.toLong()
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

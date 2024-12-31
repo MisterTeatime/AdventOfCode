@@ -1,14 +1,14 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day09 {
     private val testInput = readInput("""2024\Day09_test""")
     private val input = readInput("""2024\Day09""")
 
-   fun solvePart1(input: List<String> = this.input): Long {
-        val (blocks, spaces) = splitInput(input[0])
-        return defragAndCalculateChecksum(blocks, spaces)
+   fun solvePart1(input: List<String> = this.input): Long = timing {
+       val (blocks, spaces) = splitInput(input[0])
+       return@timing defragAndCalculateChecksum(blocks, spaces)
     }
 
     fun part2(input: List<String>): Int {
@@ -17,7 +17,7 @@ class Day09 {
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

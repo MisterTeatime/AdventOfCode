@@ -1,16 +1,12 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Extensions.getStringColumns
-import Extensions.getStringNOSWDiagonals
-import Extensions.getStringNWSODiagonals
-import Extensions.getStringRows
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day04 {
     private val testInput = readInput("""2024\Day04_test""")
     private val input = readInput("""2024\Day04""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val word = "XMAS"
         val targetWords = listOf(word, word.reversed())
         val wordLength = word.length
@@ -35,12 +31,12 @@ class Day04 {
             }
         }
 
-        return results.size
+        return@timing results.size
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val results = mutableListOf<Pair<Int, Int>>()
 
         val numRows = input.size
@@ -71,7 +67,7 @@ class Day04 {
             }
         }
 
-        return results.size
+        return@timing results.size
     }
 
     fun testPart2() = solvePart2(testInput)

@@ -1,6 +1,4 @@
-package Extensions
-
-import Point2D
+package de.werner.adventofcode.common
 
 fun List<String>.at(point: Point2D): Char = this[point.y][point.x]
 

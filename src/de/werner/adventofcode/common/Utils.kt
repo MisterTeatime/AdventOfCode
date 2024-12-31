@@ -1,3 +1,5 @@
+package de.werner.adventofcode.common
+
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -193,3 +195,13 @@ fun <T> List<T>.partitionGroups(divider: T): List<List<T>> {
 }
 
 fun Any?.println() = println(this)
+
+fun <T>timing(block: () -> T): T {
+    val start = System.currentTimeMillis()
+    try {
+        return block.invoke()
+    } finally {
+        val end = System.currentTimeMillis()
+        println("Ausführungsdauer: ${end - start} ms")
+    }
+}

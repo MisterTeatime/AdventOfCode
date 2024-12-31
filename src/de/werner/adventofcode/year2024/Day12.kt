@@ -1,18 +1,17 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 import java.util.*
 
 class Day12 {
     private val testInput = readInput("""2024\Day12_test""")
     private val input = readInput("""2024\Day12""")
 
-    fun solvePart1(input: List<String> = this.input): Long = calculateCosts(input)
+    fun solvePart1(input: List<String> = this.input): Long = timing { calculateCosts(input) }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

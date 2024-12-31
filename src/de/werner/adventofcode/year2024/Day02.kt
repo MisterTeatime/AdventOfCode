@@ -1,13 +1,13 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 import kotlin.math.abs
 
 class Day02 {
     private val testInput = readInput("""2024\Day02_test""")
     private val input = readInput("""2024\Day02""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
 
         val diffs = input.map {
                 line -> line
@@ -21,12 +21,12 @@ class Day02 {
         }
         }
 
-        return diffs.count { it }
+        return@timing diffs.count { it }
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val diffs = input.map { line ->
             val numbers = line.split(" ").map { it.toInt() }
 
@@ -47,7 +47,7 @@ class Day02 {
                 }
             }
         }
-        return diffs.count {it}
+        return@timing diffs.count {it}
     }
 
     fun testPart2() = solvePart2(testInput)

@@ -1,28 +1,28 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day22 {
     private val testInput = readInput("""2024\Day22_test""")
     private val input = readInput("""2024\Day22""")
 
-    fun solvePart1(input: List<String> = this.input): Long {
+    fun solvePart1(input: List<String> = this.input): Long = timing {
         val startNumbers = input.map { it.toLong() }
         val sum = sumOfNthSecretNumber(startNumbers, 2000)
 
-        return sum
+        return@timing sum
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Long {
+    fun solvePart2(input: List<String> = this.input): Long = timing {
         val startNumbers = input.map { it.toLong() }
         val diffPrices = mutableMapOf<List<Long>, Long>()
 //        findBuyerPrices(123L, diffPrices)
 //        findBuyerPrices(1L, diffPrices)
         startNumbers.forEach { findBuyerPrices(it, diffPrices) }
 
-        return diffPrices.values.max()
+        return@timing diffPrices.values.max()
     }
 
     fun testPart2() = solvePart2(testInput)

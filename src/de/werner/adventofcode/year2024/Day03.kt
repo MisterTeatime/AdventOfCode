@@ -1,24 +1,24 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day03 {
     private val testInput = readInput("""2024\Day03_test""")
     private val input = readInput("""2024\Day03""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
 
         val mults = input.map { extractMultiplications(it) }.flatten()
 
-        return mults.sumOf { (x, y) -> x * y }
+        return@timing mults.sumOf { (x, y) -> x * y }
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val mults = processInstructions(input.joinToString(""))
 
-        return mults.sumOf { (a,b) -> a*b }
+        return@timing mults.sumOf { (a,b) -> a*b }
     }
 
     fun testPart2() = solvePart2(testInput)

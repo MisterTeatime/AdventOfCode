@@ -1,31 +1,32 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
+//import de.werner.adventofcode.common.timing
 import kotlin.math.abs
 
 class Day01 {
     private val testInput = readInput("""2024\Day01_test""")
     private val input = readInput("""2024\Day01""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val (firstList, secondList) = getLists(input)
 
         firstList.sort()
         secondList.sort()
 
         val combined = firstList.zip(secondList) { a, b -> abs(a - b) }
-        return combined.sum()
+        return@timing combined.sum()
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val (firstList, secondList) = getLists(input)
 
         val result = firstList
             .map { it * secondList.count { elem -> elem == it } }
 
-        return result.sum()
+        return@timing result.sum()
     }
 
     fun testPart2() = solvePart2(testInput)

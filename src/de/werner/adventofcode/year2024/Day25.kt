@@ -1,22 +1,22 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day25 {
     private val testInput = readInput("""2024\Day25_test""")
     private val input = readInput("""2024\Day25""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val (locks, keys) = parsePatterns(input)
 
         val result = locks.flatMap { l -> keys.map { k -> doesFit(l, k) }}
 
-        return result.count { it }
+        return@timing result.count { it }
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

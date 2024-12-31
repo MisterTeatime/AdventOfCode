@@ -1,4 +1,4 @@
-package Extensions
+package de.werner.adventofcode.common
 
 fun <T> ArrayDeque<T>.push(item: T) = this.addFirst(item)
 fun <T> ArrayDeque<T>.pop(): T = this.removeFirst()

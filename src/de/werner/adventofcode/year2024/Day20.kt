@@ -1,24 +1,23 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day20 {
     private val testInput = readInput("""2024\Day20_test""")
     private val input = readInput("""2024\Day20""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val cheatTimes = findCheatsWithDistance(input, 2)
-        return cheatTimes
+        return@timing  cheatTimes
             .filter { it >= 100 }
             .size
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val cheatTimes = findCheatsWithDistance(input, 20)
-        return cheatTimes
+        return@timing  cheatTimes
             .filter { it >= 100 }
             .size
     }

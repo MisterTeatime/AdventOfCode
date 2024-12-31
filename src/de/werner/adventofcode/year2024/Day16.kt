@@ -1,24 +1,22 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Extensions.*
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day16 {
     private val testInput = readInput("""2024\Day16_test""")
     private val input = readInput("""2024\Day16""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
 
         val (start, end) = input.findStartEnd()
         if (start == null || end == null) throw IllegalArgumentException("Start oder Ende nicht gefunden")
 
-        return input.size
+        return@timing input.size
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int = input.size
+    fun solvePart2(input: List<String> = this.input): Int = timing { input.size }
 
     fun testPart2() = solvePart2(testInput)
 

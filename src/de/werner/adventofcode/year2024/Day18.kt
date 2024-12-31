@@ -1,25 +1,35 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import Point2D
-import readInput
+import de.werner.adventofcode.common.*
 import java.util.*
 
 class Day18 {
     private val testInput = readInput("""2024\Day18_test""")
     private val input = readInput("""2024\Day18""")
 
-    fun solvePart1(input: List<String> = this.input, bytes: Int = 1024, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Int {
+    fun solvePart1(
+        input: List<String> = this.input,
+        bytes: Int = 1024,
+        start: Point2D = Point2D(0,0),
+        goal: Point2D = Point2D(70,70)
+    ): Int = timing {
 
         val obstacles = getObstacleList(input.take(bytes))
         val shortestPath = findShortestPath(start, goal, obstacles)
 
-        if (shortestPath != null) return shortestPath.size - 1
-        return 0
+        if (shortestPath != null) return@timing shortestPath.size - 1
+        return@timing 0
     }
 
     fun testPart1() = solvePart1(input = testInput, bytes = 12, goal = Point2D(6,6))
 
-    fun solvePart2(input: List<String>, width: Int = 71, height: Int = 71, start: Point2D = Point2D(0,0), goal: Point2D = Point2D(70,70)): Point2D {
+    fun solvePart2(
+        input: List<String>,
+        width: Int = 71,
+        height: Int = 71,
+        start: Point2D = Point2D(0,0),
+        goal: Point2D = Point2D(70,70)
+    ): Point2D = timing {
         val obstacles = getObstacleList(input)
 
         var isConnected = true
@@ -48,7 +58,7 @@ class Day18 {
             }
         }
 
-        return blockingObstacle ?: Point2D(-1, -1)
+        return@timing blockingObstacle ?: Point2D(-1, -1)
     }
 
     fun testPart2() = solvePart2(input = testInput, width = 7, height = 7, goal = Point2D(6,6))

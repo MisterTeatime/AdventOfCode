@@ -1,4 +1,4 @@
-package Extensions
+package de.werner.adventofcode.common
 
 fun <T> List<List<T>>.getRows(): List<Triple<List<T>, Pair<Int, Int>, Pair<Int, Int>>> {
     val sequences = mutableListOf<Triple<List<T>, Pair<Int, Int>, Pair<Int, Int>>>()

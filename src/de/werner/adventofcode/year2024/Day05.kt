@@ -1,12 +1,12 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day05 {
     private val testInput = readInput("""2024\Day05_test""")
     private val input = readInput("""2024\Day05""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val (inst, upd) = splitList(input)
 
         val instructions = inst.map { instruction ->
@@ -16,12 +16,12 @@ class Day05 {
         val updates = upd.map { it.split(",").map { el -> el.toInt() } }
 
         val validUpdates = updates.filter { isValidUpdate(instructions, it)}
-        return validUpdates.sumOf { it[it.size / 2] }
+        return@timing validUpdates.sumOf { it[it.size / 2] }
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Int {
+    fun solvePart2(input: List<String> = this.input): Int = timing {
         val (inst, upd) = splitList(input)
 
         val instructions = inst.map { instruction ->
@@ -38,7 +38,7 @@ class Day05 {
             }
         }
 
-        return correctedUpdates.sumOf { it[it.size / 2] }
+        return@timing correctedUpdates.sumOf { it[it.size / 2] }
     }
 
     fun testPart2() = solvePart2(testInput)
@@ -47,7 +47,7 @@ class Day05 {
         val splitIndex = input.indexOf("")
 
         return if (splitIndex == -1)
-            Pair(emptyList<String>(), emptyList<String>())
+            Pair(emptyList(), emptyList())
         else {
             val before = input.take(splitIndex)
             val after = input.drop(splitIndex + 1)

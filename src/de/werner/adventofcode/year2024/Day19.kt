@@ -1,25 +1,25 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day19 {
     private val testInput = readInput("""2024\Day19_test""")
     private val input = readInput("""2024\Day19""")
 
-    fun solvePart1(input: List<String> = this.input): Int {
+    fun solvePart1(input: List<String> = this.input): Int = timing {
         val (words, sentences) = splitInput(input)
 
         val result = sentences.map { isValidSequence(it, words) }
-        return result.count { it }
+        return@timing result.count { it }
     }
 
     fun testPart1() = solvePart1(testInput)
 
-    fun solvePart2(input: List<String> = this.input): Long {
+    fun solvePart2(input: List<String> = this.input): Long = timing {
         val (words, sentences) = splitInput(input)
 
         val result = sentences.map { countValidCombinations(it, words) }
-        return result.sum()
+        return@timing result.sum()
     }
 
     fun testPart2() = solvePart2(testInput)

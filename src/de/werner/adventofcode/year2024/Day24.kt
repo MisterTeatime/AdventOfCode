@@ -1,18 +1,18 @@
-package de.werner.adventofcode2024
+package de.werner.adventofcode.year2024
 
-import readInput
+import de.werner.adventofcode.common.*
 
 class Day24 {
     private val testInput = readInput("""2024\Day24_test""")
     private val input = readInput("""2024\Day24""")
 
-    fun solvePart1(input: List<String> = this.input): Long {
+    fun solvePart1(input: List<String> = this.input): Long = timing {
         val network = getLogicNetwork(input)
         val output = network.evaluate()
 
         println(output)
 
-        return binaryListToLong(output)
+        return@timing binaryListToLong(output)
     }
 
     fun testPart1() = solvePart1(testInput)
