@@ -202,6 +202,6 @@ fun <T>timing(block: () -> T): T {
         return block.invoke()
     } finally {
         val end = System.currentTimeMillis()
-        println("Ausführungsdauer: ${end - start} ms")
+        println("Execution Time: ${end - start} ms")
     }
 }
