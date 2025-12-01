@@ -1,6 +1,6 @@
 package de.werner.adventofcode
 
-import de.werner.adventofcode.year2024.*
+import de.werner.adventofcode.year2025.*
 
 fun main() {
     val day = Day01()
