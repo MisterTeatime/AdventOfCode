@@ -32,7 +32,7 @@ class Day01 {
             }
         }
 
-        return@timing dial.zeroPasses
+        return@timing dial.zeroPasses + dial.zeroStops
     }
 
     fun testPart2() = solvePart2(testInput)
@@ -48,6 +48,7 @@ class Day01 {
             val endPosition = (position + steps).mod(100)
             val fullTurn = abs(steps) / 100
             val crossZero = when {
+                position == 0 || endPosition == 0 -> false
                 steps > 0 -> position >= endPosition
                 steps < 0 -> position <= endPosition
                 else -> false
