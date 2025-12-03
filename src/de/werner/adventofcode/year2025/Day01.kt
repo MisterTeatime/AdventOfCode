@@ -17,7 +17,7 @@ class Day01 {
             }
         }
 
-        return@timing dial.zeroStops
+        dial.zeroStops
     }
 
     fun testPart1() = solvePart1(testInput)
@@ -32,7 +32,7 @@ class Day01 {
             }
         }
 
-        return@timing dial.zeroPasses + dial.zeroStops
+        dial.zeroPasses + dial.zeroStops
     }
 
     fun testPart2() = solvePart2(testInput)
