@@ -177,6 +177,13 @@ data class Area<T>(var points: List<MutableList<T>>) {
 data class Point3D(val x: Int, val y: Int, val z: Int) {
     operator fun plus(inc: Point3D) = Point3D(x + inc.x, y + inc.y, z + inc.z)
     operator fun minus(inc: Point3D) = Point3D(x - inc.x, y - inc.y, z - inc.z)
+
+    fun distanceTo(other: Point3D):Double {
+        val dx = (x - other.x).toDouble()
+        val dy = (y - other.y).toDouble()
+        val dz = (z - other.z).toDouble()
+        return kotlin.math.sqrt(dx * dx + dy * dy + dz * dz)
+    }
 }
 
 fun <T> List<T>.partitionGroups(divider: T): List<List<T>> {
