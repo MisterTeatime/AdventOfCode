@@ -3,7 +3,7 @@ package de.werner.adventofcode
 import de.werner.adventofcode.year2025.*
 
 fun main() {
-    val day = Day11()
+    val day = Day12()
 
     val resultPart1 = day.testPart1()
     println("Test Part 1: $resultPart1")
