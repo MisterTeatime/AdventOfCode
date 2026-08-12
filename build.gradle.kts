@@ -1,5 +1,13 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.3.0"
+    java
+    application
+}
+
+java {
+    toolchain {
+        languageVersion.set(org.gradle.jvm.toolchain.JavaLanguageVersion.of(23))
+    }
 }
 
 sourceSets {
@@ -8,9 +16,20 @@ sourceSets {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        // set the JVM target to Java 23
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget("23"))
+    }
+}
+
+application {
+    mainClass.set("de.werner.adventofcode.RunKt")
+}
+
 tasks {
     wrapper {
-        gradleVersion = "8.11"
+        gradleVersion = "9.4.1"
     }
 }
 dependencies {

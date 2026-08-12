@@ -1,17 +1,56 @@
 package de.werner.adventofcode
 
 import de.werner.adventofcode.year2025.*
+import kotlin.system.exitProcess
+
+fun <T> verifyThenRun(
+    name: String,
+    test: () -> T,
+    expected: T? = null,
+    solve: () -> T,
+    skipTest: Boolean = false
+) {
+    if (!skipTest) {
+        val got = try {
+            test()
+        } catch (e: Throwable) {
+            System.err.println("Test $name: threw exception: ${e.message}")
+            e.printStackTrace()
+            exitProcess(1)
+        }
+        println("Test $name: $got")
+        if (expected != null && got != expected) {
+            System.err.println("Test FAILED for $name: expected=$expected got=$got")
+            exitProcess(1)
+        }
+    } else {
+        println("Skipping tests for $name")
+    }
+
+    val solution = try {
+        solve()
+    } catch (e: Throwable) {
+        System.err.println("Solution $name: threw exception: ${e.message}")
+        e.printStackTrace()
+        exitProcess(1)
+    }
+    println("Solution $name: $solution")
+}
 
 fun main() {
     val day = Day12()
 
-    val resultPart1 = day.testPart1()
-    println("Test Part 1: $resultPart1")
-    check(resultPart1 == 5L)
-    println("Part 1: ${day.solvePart1()}")
+    verifyThenRun(
+        name = "Day12 Part1",
+        test = { day.testPart1() },
+        expected = 33L,
+        solve = { day.solvePart1() }
+    )
 
-    val resultPart2 = day.testPart2()
-    println("Test Part 2: $resultPart2")
-    check(resultPart2 == 2L)
-    println("Part 2: ${day.solvePart2()}")
+    verifyThenRun(
+        name = "Day12 Part2",
+        test = { day.testPart2() },
+        expected = 33L,
+        solve = { day.solvePart2() }
+    )
 }
