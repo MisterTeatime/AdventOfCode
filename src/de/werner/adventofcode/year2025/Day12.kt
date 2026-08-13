@@ -6,6 +6,9 @@ class Day12 {
     private val testInput = readInput("""2025\Day12_test""")
     private val input = readInput("""2025\Day12""")
 
+    val expectedPart1 = 3L
+    val expectedPart2 = 33L
+
     fun solvePart1(input: List<String> = this.input): Long = timing { input.size.toLong() }
 
     fun testPart1() = solvePart1(testInput)

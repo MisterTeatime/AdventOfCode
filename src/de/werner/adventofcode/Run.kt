@@ -43,14 +43,14 @@ fun main() {
     verifyThenRun(
         name = "Day12 Part1",
         test = { day.testPart1() },
-        expected = 33L,
+        expected = day.expectedPart1,
         solve = { day.solvePart1() }
     )
 
     verifyThenRun(
         name = "Day12 Part2",
         test = { day.testPart2() },
-        expected = 33L,
+        expected = day.expectedPart2,
         solve = { day.solvePart2() }
     )
 }
